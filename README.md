@@ -11,7 +11,7 @@ A C shared lib along with associated q functions to allow push/pull access to mo
 
 ###### Linux (64 bit)
 ```
-gcc -o bin/mongoq.so c/mongoq.c $(pkg-config --cflags --libs libmongoc-1.0) -I./ -shared -fPIC
+gcc -o mongoq.so mongoq.c $(pkg-config --cflags --libs libmongoc-1.0) -I./ -shared -fPIC
 ```
 ###### Linux (32 bit)
 ```
