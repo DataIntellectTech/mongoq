@@ -57,6 +57,16 @@ K mongo_delete(K qtable, K qquery)
   return (K)0;
 }
 
+K mongo_drop(K qtable)
+{
+  mongoc_collection_t *collection;
+  bson_error_t error;
+  collection = mongoc_client_get_collection (client, database, qtable->s);
+  mongoc_collection_drop (collection, &error);
+  mongoc_collection_destroy (collection);
+  return (K)0;
+}
+
 
 K mongo_bulkinsert(K table, K records)
 {

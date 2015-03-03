@@ -6,6 +6,7 @@ initc:lib 2: (`mongo_init;3);
 insertc:lib 2: (`mongo_bulkinsert;2);
 selectc:lib 2: (`mongo_find;3);
 deletec:lib 2: (`mongo_delete;2);
+dropc:lib 2: (`mongo_drop;1);
 cleanupc:lib 2: (`mongo_cleanup;1);
 
 ID:`$"_id";
