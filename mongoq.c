@@ -67,10 +67,23 @@ K mongo_drop(K qtable)
   return (K)0;
 }
 
+K mongo_add_index(K qtable, K qquery)
+{
+  mongoc_collection_t *collection;
+  bson_error_t error;
+  bson_t *doc;
+  collection = mongoc_client_get_collection (client, database, qtable->s);
+  doc = bson_new_from_json(kC(qquery),qquery->n,&error);
+  mongoc_collection_create_index (collection, doc, NULL, &error);
+  bson_destroy(doc);
+  mongoc_collection_destroy (collection);
+  return (K)0;
+}
+
 
 K mongo_bulkinsert(K table, K records)
 {
-   mongoc_collection_t *collection;
+  mongoc_collection_t *collection;
   mongoc_bulk_operation_t *bulk;
   bson_error_t error;
   bson_t *doc;
@@ -98,12 +111,9 @@ K mongo_bulkinsert(K table, K records)
 
   ret = mongoc_bulk_operation_execute (bulk, &reply, &error);
 
-  str = bson_as_json (&reply, NULL);
-  printf ("%s\n", str);
-  bson_free (str);
-
   if (!ret) {
-    fprintf (stderr, "Error: %s\n", error.message);
+    krr(error.message);
+    return (K)0;
   }
 
   bson_destroy (&reply);
@@ -146,6 +156,11 @@ K mongo_find(K qtable, K qquery, K qfields)
       jk(&rtn,record);
       bson_free (str);
    }
+   if (mongoc_cursor_error (cursor, &error)) {
+      krr(error.message);
+      return(K)0;
+   }
+
 
    /* release everything */
    mongoc_cursor_destroy (cursor);
