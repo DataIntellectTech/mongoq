@@ -1,0 +1,7 @@
+EXPORTS
+mongo_init
+mongo_bulkinsert
+mongo_find
+mongo_delete
+mongo_drop
+mongo_cleanup

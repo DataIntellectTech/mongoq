@@ -15,7 +15,7 @@ gcc -o mongoq.so mongoq.c $(pkg-config --cflags --libs libmongoc-1.0) -I./ -shar
 ```
 ###### Windows
 ```
-CL /DWIN32 /I C:\usr\include\libbson-1.0 /I C:\usr\include\libmongoc-1.0 /LIBPATH C:\usr\lib\bson-1.0.lib /LIBPATH C:\usr\lib\mongoc-1.0.lib /LD mongoq.c q.lib
+CL /DWIN32 /I C:\usr\include\libbson-1.0 /I C:\usr\include\libmongoc-1.0 /LIBPATH C:\usr\lib\bson-1.0.lib /LIBPATH C:\usr\lib\mongoc-1.0.lib /LD mongoq.c q.lib /DEF mongoq.def
 ```
 
 - copy the shared library file from the bin folder to the location of your q executable - e.g. $QHOME/l32
